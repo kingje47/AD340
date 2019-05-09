@@ -6,3 +6,6 @@
 /captures
 .externalNativeBuild
 local.properties
+app/androidTest/java/com/jk/hw3
+app/test/java/com/jk/hw3
+.proguard-rules.pro
