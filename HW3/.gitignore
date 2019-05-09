@@ -8,4 +8,4 @@
 local.properties
 androidTest/
 test/
-proguard-rules
+app/proguard-rules.pro
