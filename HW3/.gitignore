@@ -6,6 +6,6 @@
 /captures
 .externalNativeBuild
 local.properties
-/androidTest
-/test
+androidTest/
+test/
 proguard-rules
