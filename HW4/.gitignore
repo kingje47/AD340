@@ -1,0 +1,11 @@
+*.iml
+.gradle
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+local.properties
+androidTest/
+test/
+app/proguard-rules.pro
