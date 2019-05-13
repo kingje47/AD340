@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">HW4</string>
+    <string name="home_text">Yer affesi anni. Athdavrazar! Ki fin yeni? Anha zhilak yera norethaan. Shekh ma shieraki anni. Ifas maisi yeri. Ezas eshna gech ahilee! Hash anha atihak yera save? Anha zhilak yera norethaan. Jalan atthirari anni. Yer affesi anni. Khal ahhas arakh. Yer affesi anni. Anha zhilak yera norethaan. Hash anha atihak yera save? Hash anha atihak yera save? Jalan atthirari anni. Ki fin yeni? San athchomari yeraan. Athdavrazar! </string>
+    <string name="about_text">Ao ynoma diniluks? Toli rhuqo lotinti, kostilus. Avy jorraelan. Valar morghulis. Toli rhuqo lotinti, kostilus. Toli rhuqo lotinti, kostilus. Valar morghulis. Skorī demalyti tymptir tymis, erinis ia morghulis. Valor dohaeris. Nuhor lir gurenna. Ao ynoma diniluks? Nuhor lir gurenna. Bantis zobrie issa se ossyngnoti ledys. Daoruni gimi, Ionos Sonaro. Skorī demalyti tymptir tymis, erinis ia morghulis. Valor dohaeris. Valor dohaeris. Bantis zobrie issa se ossyngnoti ledys. Hen syndrorro, onos. Hen nuqir, perzys. Hen morghot, glaeson. Bantis zobrie issa se ossyngnoti ledys. ></string>
+    <string name="app_bar_first">first_action</string>
+    <string name="app_bar_second">second_action</string>
+    <string name="nav_home">Main</string>
+    <string name="nav_about">About</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
