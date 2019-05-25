@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">HW5</string>
+
+    <string-array name="dragon_colors">
+        <item>red</item>
+        <item>blue</item>
+        <item>green</item>
+    </string-array>
+    <string name="dragon_level">Your dragon is level %1$d</string>
 </resources>
