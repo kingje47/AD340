@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HW6</string>
+    <string name="no_connection">I typed your symptoms into the thing up here, and it says you could have network connectivity problems.</string>
 </resources>
