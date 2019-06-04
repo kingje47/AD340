@@ -70,16 +70,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String cameraDescription = "";
         try {
             JSONObject cameraObject = new JSONObject(s);
-            JSONArray results = cameraObject.getJSONArray("Features");
-            Log.i(TAG, Integer.toString(results.length()));
+            JSONArray features = cameraObject.getJSONArray("Features");
+            Log.i(TAG, Integer.toString(features.length()));
 
-            String[] descriptionArray = new String[results.length()];
+            String[] descriptionArray = new String[features.length()];
             String[] urlArray = new String[results.length()];
-            int[] idArray = new int[results.length()];
+            int[] idArray = new int[features.length()];
 
-            for (int i = 0; i < results.length() - 1; i++) {
+            for (int i = 0; i < features.length() - 1; i++) {
 
-                JSONObject firstResult = results.getJSONObject(i);
+                JSONObject firstResult = features.getJSONObject(i);
                 JSONArray cameras = firstResult.getJSONArray("Cameras");
                 JSONObject firstCamera = cameras.getJSONObject(i);
                 cameraDescription = firstCamera.getString("Description");
