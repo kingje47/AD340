@@ -23,7 +23,7 @@ public class CameraAsyncTaskLoader extends AsyncTaskLoader<String> {
 
         String baseURL = "https://web6.seattle.gov/Travelers/api/Map/Data?zoomId=13&type=2";
 
-        return NetworkConnection.getData(baseURL, "q", mQueryString, "fo", "json");
+        return NetworkConnection.getData(baseURL, "zoomId", mQueryString, "type", "2");
     }
 
     @Override

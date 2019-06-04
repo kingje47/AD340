@@ -1,12 +1,10 @@
 package com.jk.hw6;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
@@ -16,14 +14,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<String> {
+
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<String>{
 
     public TextView results;
     private static final String TAG = "MAIN";
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button button = findViewById(R.id.button);
         button.setOnClickListener(this);
         results = findViewById(R.id.results);
-
-
     }
 
     @Override
@@ -44,24 +42,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (info != null && info.isConnected()) {
 
-
             results.setText("Waiting...");
 
             Bundle bundle = new Bundle();
-            bundle.putString("queryString", "testVal");
+            bundle.putString("queryString", "13");
             getSupportLoaderManager().restartLoader(0, bundle, this);
-
-            Intent intent = new Intent (this, CameraActivity.class);
-            startActivity(intent);
-            Log.i(TAG, "Starting intent");
-
-
 
         } else {
             results.setText(getResources().getString(R.string.no_connection));
         }
-
-
 
     }
 
@@ -82,13 +71,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             JSONObject cameraObject = new JSONObject(s);
             JSONArray results = cameraObject.getJSONArray("Features");
+            Log.i(TAG, Integer.toString(results.length()));
 
-            for (int i = 0; i < results.length(); i++) {
+            String[] descriptionArray = new String[results.length()];
+            String[] urlArray = new String[results.length()];
+            int[] idArray = new int[results.length()];
+
+            for (int i = 0; i < results.length() - 1; i++) {
 
                 JSONObject firstResult = results.getJSONObject(i);
                 JSONArray cameras = firstResult.getJSONArray("Cameras");
                 JSONObject firstCamera = cameras.getJSONObject(i);
-                //JSONObject image = firstCamera.getJSONObject("ImageUrl");
                 cameraDescription = firstCamera.getString("Description");
                 fullImageUrl = firstCamera.getString("ImageUrl");
 
@@ -96,8 +89,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sb.append(fullImageUrl);
 
                 Camera camera = new Camera (cameraDescription, fullImageUrl, i);
-
+                descriptionArray[i] = camera.getDescription();
+                urlArray[i] = camera.getCameraUrl();
+                idArray[i] = camera.getCameraId();
             }
+
+
+
+            CameraAdapter adapter = new CameraAdapter(descriptionArray, urlArray, idArray);
+            recyclerView.setAdapter(adapter);
 
 
         } catch (Exception e){

@@ -1,15 +1,10 @@
 package com.jk.hw6;
 
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
 
 
@@ -22,7 +17,7 @@ class CameraAdapter extends RecyclerView.Adapter<CameraAdapter.ViewHolder> {
     private String[] cameraDescription;
     private String[] cameraUrl;
     private int[] cameraId;
-    private Listener listener;
+    //private Listener listener;
 
     interface Listener {
         void onClick(int position);
@@ -55,7 +50,7 @@ class CameraAdapter extends RecyclerView.Adapter<CameraAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, final int cameraId){
         CardView cardView = holder.cardView;
-        ImageView imageView = (ImageView)cardView.findViewById(R.id.camera_image);
+        ImageView imageView = (ImageView)cardView.findViewById(R.id.camera_recycler);
 //        Drawable drawable = ContextCompat.getDrawable(cardView.getContext(), cameraId[position]);
 ///       imageView.setImageDrawable(drawable);
 
@@ -80,9 +75,9 @@ class CameraAdapter extends RecyclerView.Adapter<CameraAdapter.ViewHolder> {
         return 0;
     }
 
-    public void setListener(Listener listener){
-        this.listener = listener;
-    }
+//    public void setListener(Listener listener){
+//        this.listener = listener;
+//    }
 }
 
 
