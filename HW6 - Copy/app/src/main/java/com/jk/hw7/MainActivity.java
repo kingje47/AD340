@@ -1,4 +1,4 @@
-package com.jk.hw6;
+package com.jk.hw7;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -9,6 +9,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public TextView results;
     private static final String TAG = "MAIN";
-    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,36 +68,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onLoadFinished(@NonNull Loader<String> loader, String s){
         String fullImageUrl = "";
         String cameraDescription = "";
+        Camera[] cameraArray;
+        String[] descriptionArray;
+        String[] urlArray;
+        int[] idArray;
         try {
             JSONObject cameraObject = new JSONObject(s);
             JSONArray features = cameraObject.getJSONArray("Features");
             Log.i(TAG, Integer.toString(features.length()));
 
-            String[] descriptionArray = new String[features.length()];
-            String[] urlArray = new String[results.length()];
-            int[] idArray = new int[features.length()];
+            descriptionArray = new String[features.length()];
+            urlArray = new String[features.length()];
+            idArray = new int[features.length()];
+            cameraArray = new Camera[features.length()];
 
-            for (int i = 0; i < features.length() - 1; i++) {
+
+            Integer i = 0;
+            while (i < features.length()) {
 
                 JSONObject firstResult = features.getJSONObject(i);
                 JSONArray cameras = firstResult.getJSONArray("Cameras");
-                JSONObject firstCamera = cameras.getJSONObject(i);
-                cameraDescription = firstCamera.getString("Description");
-                fullImageUrl = firstCamera.getString("ImageUrl");
+                for (int j = 0; j < cameras.length(); j++) {
+                    JSONObject firstCamera = cameras.getJSONObject(j);
+                    cameraDescription = firstCamera.getString("Description");
+                    fullImageUrl = firstCamera.getString("ImageUrl");
 
-                StringBuilder sb = new StringBuilder("http://www.seattle.gov/trafficcams/images/");
-                sb.append(fullImageUrl);
 
-                Camera camera = new Camera (cameraDescription, fullImageUrl, i);
-                descriptionArray[i] = camera.getDescription();
-                urlArray[i] = camera.getCameraUrl();
-                idArray[i] = camera.getCameraId();
+                    StringBuilder sb = new StringBuilder("http://www.seattle.gov/trafficcams/images/");
+                    sb.append(fullImageUrl);
+                    fullImageUrl = sb.toString();
+
+
+                    Camera camera = new Camera(cameraDescription, fullImageUrl, i);
+                    descriptionArray[i] = camera.getDescription();
+                    urlArray[i] = camera.getCameraUrl();
+                    idArray[i] = camera.getCameraId();
+                    cameraArray[i] = camera;
+                    i++;
+                }
             }
 
+//            for (int k = 0; k < idArray.length; k++){
+//                Log.i(TAG, Integer.toString(idArray[k]));
+//            }
+            RecyclerView recyclerView = findViewById(R.id.camera_recycler);
 
-
-            CameraAdapter adapter = new CameraAdapter(descriptionArray, urlArray, idArray);
+            CameraAdapter adapter = new CameraAdapter(descriptionArray, urlArray, idArray );
             recyclerView.setAdapter(adapter);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(layoutManager);
 
 
         } catch (Exception e){

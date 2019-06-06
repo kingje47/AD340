@@ -1,4 +1,4 @@
-package com.jk.hw6;
+package com.jk.hw7;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

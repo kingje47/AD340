@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <!-- View implemented from Head First Android Development Ch. 13 -->
+
+<android.support.v7.widget.RecyclerView
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/camera_recycler"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:scrollbars="vertical"/>

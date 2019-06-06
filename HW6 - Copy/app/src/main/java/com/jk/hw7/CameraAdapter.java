@@ -1,4 +1,4 @@
-package com.jk.hw6;
+package com.jk.hw7;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
-
 
 
 /* Class designed from Head First Android Development Ch. 13 */
@@ -17,7 +16,7 @@ class CameraAdapter extends RecyclerView.Adapter<CameraAdapter.ViewHolder> {
     private String[] cameraDescription;
     private String[] cameraUrl;
     private int[] cameraId;
-    //private Listener listener;
+    private Listener listener;
 
     interface Listener {
         void onClick(int position);
@@ -33,10 +32,10 @@ class CameraAdapter extends RecyclerView.Adapter<CameraAdapter.ViewHolder> {
         }
     }
 
-    public CameraAdapter(String[] cameraDescription, String[] cameraUrl, int[] cameraId) {
-        this.cameraDescription = cameraDescription;
-        this.cameraUrl = cameraUrl;
-        this.cameraId = cameraId;
+    public CameraAdapter(String[] descriptions, String[] urls, int[]ids) {
+        this.cameraDescription = descriptions;
+        this.cameraUrl = urls;
+        this.cameraId = ids;
     }
 
     @Override
