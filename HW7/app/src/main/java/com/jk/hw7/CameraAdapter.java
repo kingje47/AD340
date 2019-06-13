@@ -1,10 +1,13 @@
 package com.jk.hw7;
 
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import com.squareup.picasso.Picasso;
 
 
@@ -24,11 +27,11 @@ class CameraAdapter extends RecyclerView.Adapter<CameraAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private CardView cardView;
+        private LinearLayout linearLayout;
 
-        public ViewHolder(CardView v) {
+        public ViewHolder(LinearLayout v) {
             super(v);
-            cardView = v;
+            linearLayout = v;
         }
     }
 
@@ -41,29 +44,25 @@ class CameraAdapter extends RecyclerView.Adapter<CameraAdapter.ViewHolder> {
     @Override
     public CameraAdapter.ViewHolder onCreateViewHolder(
             ViewGroup parent, int viewType){
-        CardView cv = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_camera, parent, false);
+        LinearLayout cv = (LinearLayout) LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.activity_camera_detail, parent, false);
         return new ViewHolder(cv);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int cameraId){
-        CardView cardView = holder.cardView;
-        ImageView imageView = (ImageView)cardView.findViewById(R.id.camera_recycler);
-//        Drawable drawable = ContextCompat.getDrawable(cardView.getContext(), cameraId[position]);
-///       imageView.setImageDrawable(drawable);
-
-//        imageView.setContentDescription(cameraName[position]);
-//        TextView textView = (TextView)cardView.findViewById(R.id.camera_text);
-//        textView.setText(cameraName[position]);
-//        cardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (listener != null) {
-//                    listener.onClick(position);
-//                }
-//            }
-//        });
+        LinearLayout linearLayout = holder.linearLayout;
+        ImageView imageView = (ImageView)linearLayout.findViewById(R.id.camera_image);
+        TextView textView = (TextView)linearLayout.findViewById(R.id.camera_text);
+        textView.setText(cameraDescription[cameraId]);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onClick(cameraId);
+                }
+            }
+        });
         Picasso.get().load(cameraUrl[cameraId]).into(imageView);
 
 
@@ -71,12 +70,12 @@ class CameraAdapter extends RecyclerView.Adapter<CameraAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return cameraId.length;
     }
 
-//    public void setListener(Listener listener){
-//        this.listener = listener;
-//    }
+    public void setListener(Listener listener){
+        this.listener = listener;
+    }
 }
 
 

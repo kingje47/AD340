@@ -10,6 +10,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+// Implemented from Module 6 AsyncTaskLoader and JSON deserialization video
+
 public class NetworkConnection {
 
     final static String TAG = "CONNECTION_MANAGER";
