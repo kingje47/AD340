@@ -7,3 +7,4 @@
 .externalNativeBuild
 local.properties
 app/proguard-rules.pro
+google_maps_api_key.xml

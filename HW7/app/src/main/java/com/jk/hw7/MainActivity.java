@@ -1,6 +1,7 @@
 package com.jk.hw7;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
@@ -19,11 +20,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<String>{
 
     public TextView results;
     private static final String TAG = "MAIN";
+    final static String CAMERA_DATA = "Camera bundle";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,16 +69,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onLoadFinished(@NonNull Loader<String> loader, String s){
         String fullImageUrl = "";
         String cameraDescription = "";
-        Camera[] cameraArray;
-        String[] descriptionArray;
+        double latitude;
+        double longitude;
+        final Camera[] cameraArray;
+        final String[] descriptionArray;
+        double[] latArray;
+        double[] longArray;
         String[] urlArray;
         int[] idArray;
         try {
             JSONObject cameraObject = new JSONObject(s);
+
             JSONArray features = cameraObject.getJSONArray("Features");
             Log.i(TAG, Integer.toString(features.length()));
 
             descriptionArray = new String[features.length()];
+            latArray = new double[features.length()];
+            longArray = new double[features.length()];
             urlArray = new String[features.length()];
             idArray = new int[features.length()];
             cameraArray = new Camera[features.length()];
@@ -88,6 +96,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 JSONObject firstResult = features.getJSONObject(i);
                 JSONArray cameras = firstResult.getJSONArray("Cameras");
+                JSONArray pointCoordinates = firstResult.getJSONArray("PointCoordinate");
+                latitude = pointCoordinates.getDouble(0);
+                longitude = pointCoordinates.getDouble(1);
+
                 for (int j = 0; j < cameras.length(); j++) {
                     JSONObject firstCamera = cameras.getJSONObject(j);
                     cameraDescription = firstCamera.getString("Description");
@@ -99,8 +111,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     fullImageUrl = sb.toString();
 
 
-                    Camera camera = new Camera(cameraDescription, fullImageUrl, i);
+                    Camera camera = new Camera(cameraDescription, latitude, longitude, fullImageUrl, i);
                     descriptionArray[i] = camera.getDescription();
+                    latArray[i] = camera.getLatitude();
+                    longArray[i] = camera.getLongitude();
                     urlArray[i] = camera.getCameraUrl();
                     idArray[i] = camera.getCameraId();
                     cameraArray[i] = camera;
@@ -108,15 +122,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
 
-//            for (int k = 0; k < idArray.length; k++){
-//                Log.i(TAG, Integer.toString(idArray[k]));
-//            }
             RecyclerView recyclerView = findViewById(R.id.camera_recycler);
 
-            CameraAdapter adapter = new CameraAdapter(descriptionArray, urlArray, idArray );
+            CameraAdapter adapter = new CameraAdapter(descriptionArray, latArray, longArray, urlArray, idArray );
             recyclerView.setAdapter(adapter);
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
+
+            adapter.setListener(new CameraAdapter.Listener() {
+                @Override
+                public void onClick(int location) {
+                    Intent intent = new Intent(getApplicationContext(),CameraLocationActivity.class);
+                    String[] cameraData = new String[3];
+                    cameraData[0] = Double.toString(cameraArray[location].getLatitude());
+                    cameraData[1] = Double.toString(cameraArray[location].getLongitude());
+                    cameraData[2] = descriptionArray[location];
+
+                    //Passing an array as a bundle with an intent code used from https://stackoverflow.com/questions/4429036/passing-string-array-between-android-activities
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArray(CAMERA_DATA, cameraData);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            });
 
 
         } catch (Exception e){
@@ -129,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onLoaderReset(@NonNull Loader<String> loader){
-
     }
+
+
  }

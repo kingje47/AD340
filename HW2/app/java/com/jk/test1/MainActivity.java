@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.i(TAG, this.getLifecycle().getCurrentState().toString());
-    }
+}
 
     protected void onClick(View button){
         Log.i(TAG, "Button" + button.getId() + " clicked.");

@@ -1,11 +1,11 @@
 package com.jk.hw7;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -17,45 +17,52 @@ import com.squareup.picasso.Picasso;
 class CameraAdapter extends RecyclerView.Adapter<CameraAdapter.ViewHolder> {
 
     private String[] cameraDescription;
+    private double[] cameraLat;
+    private double[]cameraLong;
     private String[] cameraUrl;
     private int[] cameraId;
     private Listener listener;
 
     interface Listener {
-        void onClick(int position);
+         void onClick(int cameraId);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private LinearLayout linearLayout;
+        private CardView cardView;
 
-        public ViewHolder(LinearLayout v) {
+        public ViewHolder(CardView v) {
             super(v);
-            linearLayout = v;
+            cardView = v;
         }
     }
 
-    public CameraAdapter(String[] descriptions, String[] urls, int[]ids) {
+    public CameraAdapter(String[] descriptions, double[] lats, double[] longs, String[] urls, int[]ids) {
         this.cameraDescription = descriptions;
+        this.cameraLat = lats;
+        this.cameraLong = longs;
         this.cameraUrl = urls;
         this.cameraId = ids;
     }
 
+
     @Override
     public CameraAdapter.ViewHolder onCreateViewHolder(
             ViewGroup parent, int viewType){
-        LinearLayout cv = (LinearLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_camera_detail, parent, false);
+        CardView cv = (CardView) LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.card_camera, parent, false);
         return new ViewHolder(cv);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int cameraId){
-        LinearLayout linearLayout = holder.linearLayout;
-        ImageView imageView = (ImageView)linearLayout.findViewById(R.id.camera_image);
-        TextView textView = (TextView)linearLayout.findViewById(R.id.camera_text);
+        CardView cardView = holder.cardView;
+        ImageView imageView = (ImageView)cardView.findViewById(R.id.camera_image);
+        TextView textView = (TextView)cardView.findViewById(R.id.camera_text);
         textView.setText(cameraDescription[cameraId]);
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        textView.append(System.getProperty ("line.separator") + "Latitude: " + cameraLat[cameraId]);
+        textView.append(System.getProperty ("line.separator") + "Longitude: " +  cameraLong[cameraId]);
+        cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (listener != null) {

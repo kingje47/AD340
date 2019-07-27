@@ -7,4 +7,7 @@
         <item>green</item>
     </string-array>
     <string name="dragon_level">Your dragon is level %1$d</string>
+    <string name="default_dragon" />
+    <string name="default_color" />
+    <string name="default_magic" />
 </resources>

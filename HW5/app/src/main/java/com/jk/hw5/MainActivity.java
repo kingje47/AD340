@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Dragon dragon = new Dragon();
+    private Dragon dragon = new Dragon(null, 0);
 
 
     @Override
