@@ -7,7 +7,9 @@
         <item>green</item>
     </string-array>
     <string name="dragon_level">Your dragon is level %1$d</string>
+    <string name="select_magic">Select your dragon\'s magic.\nType one of the following:\n -fire\n -water\n -lightning</string>
     <string name="default_dragon" />
     <string name="default_color" />
     <string name="default_magic" />
+    <string name="error">Please type your magic selection exactly as it is shown</string>
 </resources>

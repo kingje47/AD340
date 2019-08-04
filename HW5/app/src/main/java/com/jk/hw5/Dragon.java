@@ -1,25 +1,21 @@
 package com.jk.hw5;
 
 import android.content.Context;
-import android.view.View;
-import android.widget.CheckBox;
-
-
 
 public class Dragon {
 
 
     private String Color;
-    private Integer Magic = 0;
+    private String Magic;
 
-    public Dragon(String color, Integer magic) {
+    public Dragon(String color, String magic) {
         setColor(color);
         setMagic(magic);
     }
 
     public Dragon (Context ctx) {
         this.Color = null;
-        this.Magic = 0;
+        this.Magic = null;
     }
 
     public String getColor() {
@@ -30,36 +26,31 @@ public class Dragon {
         this.Color = color;
     }
 
-    public void setMagic(Integer magic) {
+    public void setMagic(String magic) {
         this.Magic = magic;
     }
 
-    public Integer getMagic() {
+    public String getMagic() {
         return Magic;
     }
 
-    public void resetMagic() { Magic = 0;}
 
+    public int magicLevel (String magic) {
+        int response = 0;
 
-
-    public Integer clicker (View view) {
-        boolean checked = ((CheckBox)view).isChecked();
-
-        switch (view.getId()) {
-            case R.id.checkbox_fire:
-                if (checked)
-                    Magic = Magic + 4;
-                break;
-            case R.id.checkbox_lightning:
-                if (checked)
-                    Magic = Magic + 1;
-                break;
-            case R.id.checkbox_water:
-                if (checked)
-                    Magic = Magic + 3;
-                break;
+        if (magic.equals("fire")){
+            response = response + 4;
         }
-        return Magic;
+
+        if (magic.equals("lightning")) {
+            response = response + 1;
+        }
+
+        if (magic.equals("water")){
+            response = response + 3;
+        }
+
+        return response;
     }
 
 

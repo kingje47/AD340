@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,26 +11,14 @@
    <TextView
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:text="Select your dragon's magic"/>
+       android:text="@string/select_magic"/>
 
+    <EditText
+        android:id="@+id/magic_text_box"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp" />
 
-   <CheckBox
-       android:id="@+id/checkbox_fire"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="fire"/>
-
-    <CheckBox
-        android:id="@+id/checkbox_water"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="water"/>
-
-    <CheckBox
-        android:id="@+id/checkbox_lightning"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="lightning"/>
 
     <TextView
         android:layout_width="wrap_content"
